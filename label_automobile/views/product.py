@@ -1,4 +1,4 @@
-from pyramid.httpexceptions import HTTPNotFound
+from pyramid.httpexceptions import HTTPNotFound, HTTPBadRequest
 from pyramid.request import Request
 from pyramid.view import view_defaults, view_config
 
@@ -14,11 +14,15 @@ class ProductView:
 
     @view_config(route_name='product.list')
     def list(self):
-        return self.product_repository.find_all()
+        return [product.as_dict() for product in self.product_repository.find_all()]
 
     @view_config(route_name='product.details')
-    def details(self, product_id: str):
+    def details(self):
+        product_id = self.request.matchdict['id']
+        if product_id is None:
+            return HTTPBadRequest()
+
         product = self.product_repository.find_by_id(product_id)
         if product is None:
             return HTTPNotFound()
-        return product
+        return product.as_dict()

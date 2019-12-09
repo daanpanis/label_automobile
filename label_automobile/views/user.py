@@ -12,11 +12,7 @@ class UserView:
 
     @view_config(route_name='user.list')
     def list(self):
-        return [{
-            "name": user.name,
-            "surname": user.surname,
-            "email": user.email
-        } for user in self.session.query(User).all()]
+        return [user.as_dict() for user in self.session.query(User).all()]
 
     def get(self):
         raise NotImplementedError

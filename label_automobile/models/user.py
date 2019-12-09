@@ -9,7 +9,7 @@ class User(BaseModel, Base):
 
     name = Column(String, nullable=False)
     surname = Column(String, nullable=False)
-    email_ = Column(String, nullable=False, unique=True)
+    email_ = Column(String, nullable=False, unique=True, name='email')
     password = Column(String)
 
     active = Column(Boolean, nullable=False, default=False)
@@ -23,3 +23,11 @@ class User(BaseModel, Base):
         if not isinstance(value, str) or '@' not in value:
             raise Exception('Invalid Email')
         self.email_ = value
+
+    def as_dict(self):
+        return {
+            'id': self.id.__str__(),
+            'name': self.name,
+            'surname': self.surname,
+            'email': self.email
+        }

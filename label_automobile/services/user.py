@@ -5,6 +5,9 @@ class UserService:
     def __init__(self, session):
         self._repository = UserRepository(session)
 
+    def find_by_id(self, user_id):
+        return self._repository.find_by_id(user_id)
+
     def find_by_email(self, email):
         """
         Find a user by email address
