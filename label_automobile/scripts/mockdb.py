@@ -15,7 +15,8 @@ from ..models import (
     get_tm_session,
     get_session_factory,
     User
-    )
+)
+from ..models.product import Product
 
 
 def usage(argv):
@@ -44,3 +45,20 @@ def main(argv=sys.argv):
         user.surname = "Doe"
         user.email = "johndoe@example.com"
         dbsession.add(user)
+
+        product1 = Product()
+        product1.name = 'Axle'
+        product1.description = 'The axle is responsible for transferring power from the engine to the wheels.'
+        product1.price = 599.99
+        dbsession.add(product1)
+
+        product2 = Product()
+        product2.name = 'AC Compressor'
+        product2.description = 'The AC compressor cycles through Freon in order to provide cool air throughout the vehicle.'
+        product2.price = 1199.99
+        dbsession.add(product2)
+
+        product3 = Product()
+        product3.name = 'Transmission'
+        product3.description = 'A transmission is a machine in a power transmission system, which provides controlled application of the power.'
+        product3.price = 1999.99
